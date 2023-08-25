@@ -24,3 +24,12 @@ class LikeRoomEvent extends HomeEvent{
   List<Object?> get props => [];
 
 }
+class GetRoomDetailsEvent extends HomeEvent{
+  int roomId;
+  @override
+  List<Object?> get props => [roomId];
+
+  GetRoomDetailsEvent({
+    required this.roomId,
+  });
+}

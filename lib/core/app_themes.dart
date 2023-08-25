@@ -47,7 +47,7 @@ abstract class AppThemes{
       ),
       bodySmall:TextStyle(
         fontFamily:AppTexts.fontFamily,
-        fontSize: AppSizes.fontSize8.sp,
+        fontSize: AppSizes.fontSize12.sp,
         fontWeight: FontWeight.w500,
         color: AppColors.hintColor,
       ),

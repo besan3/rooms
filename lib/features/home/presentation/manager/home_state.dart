@@ -50,3 +50,25 @@ class DisLikedState extends HomeState {
   @override
   List<Object> get props => [];
 }
+class GetRoomDataLoadingState extends HomeState {
+  @override
+  List<Object> get props => [];
+}
+class GetRoomDataSuccessState extends HomeState {
+  final RoomDetailsEntity roomDetailsEntity;
+  @override
+  List<Object> get props => [roomDetailsEntity];
+
+  const GetRoomDataSuccessState({
+    required this.roomDetailsEntity,
+  });
+}
+class GetRoomDataErrorState extends HomeState {
+  final String message;
+  @override
+  List<Object> get props => [message];
+
+  const GetRoomDataErrorState({
+    required this.message,
+  });
+}

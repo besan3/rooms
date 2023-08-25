@@ -4,4 +4,5 @@ abstract class EndPoints{
   static const String register='${baseUrl}users/register';
   static const String profile='${baseUrl}users/profile';
   static const String home='${baseUrl}home';
+  static const String rooms='${baseUrl}rooms/show?room_id=2';
 }

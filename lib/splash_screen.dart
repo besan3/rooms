@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:rooms/core/app_images.dart';
 import 'package:rooms/core/app_routes.dart';
 import 'package:rooms/core/network/local_storage.dart';
-
-
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -13,9 +11,12 @@ class SplashScreen extends StatelessWidget {
   var isFirstLogin=SharedPrefs.getDta(key: 'token');
    print(isSaved);
    print(isFirstLogin);
-
-    Future.delayed(const Duration(seconds: 5), (){
-      Navigator.pushReplacementNamed(context,isSaved!=null?isFirstLogin==null? AppRoutes.login:AppRoutes.home:AppRoutes.onBoarding);
+    Future.delayed(const Duration(seconds: 2), (){
+      Navigator.pushReplacementNamed(context,
+         isSaved!=null?isFirstLogin==null?
+          AppRoutes.login
+        :AppRoutes.home:AppRoutes.onBoarding
+      );
     });
 
     return Scaffold(

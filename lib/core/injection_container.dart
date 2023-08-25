@@ -13,6 +13,7 @@ import 'package:rooms/features/home/data/data_sources/home_remote_data_source.da
 import 'package:rooms/features/home/data/repositories/home_repositoryImp.dart';
 import 'package:rooms/features/home/domain/repositories/home_repository.dart';
 import 'package:rooms/features/home/domain/use_cases/get_home_data_usecase.dart';
+import 'package:rooms/features/home/domain/use_cases/get_room_details_usecase.dart';
 import 'package:rooms/features/home/presentation/manager/home_bloc.dart';
 import 'network/network_info.dart';
 
@@ -26,7 +27,7 @@ Future<void> init() async {
   sl.registerFactory(() => AuthBloc(
       loginUseCase: sl(),registerUseCase: sl(),profileUseCase: sl(),updateProfileUseCase: sl()));
 
-  sl.registerFactory(() => HomeBloc(getHomeDataUseCase: sl()));
+  sl.registerFactory(() => HomeBloc(getHomeDataUseCase: sl(),getRoomDateUseCase: sl()));
 // UseCases
 
   sl.registerLazySingleton(() => LoginUseCase( authRepository: sl()));
@@ -34,6 +35,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetProfileUseCase( authRepository: sl()));
   sl.registerLazySingleton(() => UpdateProfileUseCase( authRepository: sl()));
   sl.registerLazySingleton(() => GetHomeDataUseCase( homeRepository: sl()));
+  sl.registerLazySingleton(() => GetRoomDateUseCase( homeRepository: sl()));
 
 
 // Repository

@@ -1,18 +1,27 @@
 import 'package:rooms/core/index.dart';
+import 'package:rooms/features/auth/domain/entities/register_info.dart';
 import 'package:rooms/features/auth/presentation/manager/auth_bloc.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
 
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
 
-    AuthBloc authBloc = BlocProvider.of<AuthBloc>(context);
+    AuthBloc authBloc = context.read<AuthBloc>();
     GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     return BlocConsumer<AuthBloc, AuthState>(
   listener: (context, state) {
-
+          if(state is AuthRegisterSuccessState){
+            Navigator.pushReplacementNamed(context,AppRoutes.home);
+          }
   },
   builder: (context, state) {
+    bool isPasswordVisible = state is AuthVisiblePasswordState;
     return Scaffold(
       appBar: AppBar(
         title: Text(AppTexts.signUp),
@@ -23,7 +32,7 @@ class RegisterScreen extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(AppSizes.padding20.h.w),
             child: Form(
-              key: _formKey,
+              //key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -40,10 +49,10 @@ class RegisterScreen extends StatelessWidget {
                         ?.copyWith(color: AppColors.textPrimaryColor),
                   ),
                   CustomAppTextField(
-                    controller: authBloc.emailController,
+                    controller: authBloc.firstNameController,
                     isSecure: false,
                     hintText: AppTexts.fullName,
-                    textInputType: TextInputType.emailAddress,
+                    textInputType: TextInputType.text,
                   validator: (value){
                       if(value!.isEmpty){
                         return 'This Field is required';
@@ -58,10 +67,15 @@ class RegisterScreen extends StatelessWidget {
                         ?.copyWith(color: AppColors.textPrimaryColor),
                   ),
                   CustomAppTextField(
-                    controller: context.read<AuthBloc>().emailController,
+                    controller: context.read<AuthBloc>().lastNameController,
                     isSecure: false,
                     hintText: AppTexts.userName,
-                    textInputType: TextInputType.emailAddress,),
+                    textInputType: TextInputType.text,
+                    validator: (value){
+                      if(value!.isEmpty){
+                        return 'This Field is required';
+                      }return null;
+                    },),
                   Text(
                     AppTexts.email,
                     style: Theme.of(context)
@@ -81,7 +95,12 @@ class RegisterScreen extends StatelessWidget {
                     ),
                     suffix: SizedBox(),
                     hintText: 'email@email.com',
-                    textInputType: TextInputType.emailAddress,),
+                    textInputType: TextInputType.emailAddress,
+                    validator: (value){
+                      if(value!.isEmpty){
+                        return 'This Field is required';
+                      }return null;
+                    },),
                   Text(
                     AppTexts.password,
                     style: Theme.of(context)
@@ -91,35 +110,14 @@ class RegisterScreen extends StatelessWidget {
                   ),
 
                   CustomAppTextField(
-                    controller: authBloc.passwordController,
-                    isSecure: authBloc.isVisibile ? false : true,
-                    prefix: SvgPicture.asset(
-                      AppIcons.lock,
-                      width: 15.w,
-                      height: 15.h,
-                    ),
-                    suffix: IconButton(
-                      onPressed: () {
-                        authBloc.add(ToggleVisibilityEvent());
-                        print(authBloc.isVisibile);
-                      },
-                      icon: Icon(authBloc.isVisibile
-                          ? Icons.visibility
-                          : Icons.visibility_off_sharp),
-                    ),
-                    hintText: '******',
-                    textInputType: TextInputType.visiblePassword,
-                  ), Text(
-                    AppTexts.confirmPassword,
-                    style: Theme.of(context)
-                        .primaryTextTheme
-                        .titleMedium
-                        ?.copyWith(color: AppColors.textPrimaryColor),
-                  ),
+                    controller:authBloc. passwordController,
+                    validator: (value) {
+                      if(value!.isEmpty) {
+                        return 'Enter your password';
+                      }return null;
+                    },
 
-                  CustomAppTextField(
-                    controller: authBloc.passwordController,
-                    isSecure: authBloc.isVisibile ? false : true,
+                    isSecure: isPasswordVisible ? false : true,
                     prefix: SvgPicture.asset(
                       AppIcons.lock,
                       width: 15.w,
@@ -128,21 +126,66 @@ class RegisterScreen extends StatelessWidget {
                     suffix: IconButton(
                       onPressed: () {
                         context.read<AuthBloc>().add(ToggleVisibilityEvent());
-                        print(context.read<AuthBloc>().isVisibile);
+
                       },
-                      icon: Icon(context.read<AuthBloc>().isVisibile
+                      icon: Icon(isPasswordVisible
                           ? Icons.visibility
                           : Icons.visibility_off_sharp),
                     ),
+                    hasPrefix: true,
+                    hintText: '******',
+                    textInputType: TextInputType.visiblePassword,
+                  ),
+                  Text(
+                    AppTexts.confirmPassword,
+                    style: Theme.of(context)
+                        .primaryTextTheme
+                        .titleMedium
+                        ?.copyWith(color: AppColors.textPrimaryColor),
+                  ),
+
+                  CustomAppTextField(
+                    controller: authBloc.confirmPasswordController,
+                    validator: (value) {
+                      if(value!.isEmpty) {
+                        return 'Enter your password';
+                      }return null;
+                    },
+
+                    isSecure: isPasswordVisible ? false : true,
+                    prefix: SvgPicture.asset(
+                      AppIcons.lock,
+                      width: 15.w,
+                      height: 15.h,
+                    ),
+                    suffix: IconButton(
+                      onPressed: () {
+                        context.read<AuthBloc>().add(ToggleVisibilityEvent());
+
+                      },
+                      icon: Icon(isPasswordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off_sharp),
+                    ),
+                    hasPrefix: true,
                     hintText: '******',
                     textInputType: TextInputType.visiblePassword,
                   ),
                   CustomAppButton(
                     onPressed: () {
-                      print(super.key);
-                     // context.read<AuthBloc>().add(GetProfileEvent());
+                    //  if(_formKey.currentState!.validate()){
+                        context.read<AuthBloc>().add(RegisterEvent(registerInfo: RegisterInfo(
+                          email: authBloc.emailController.text,
+                          password: authBloc.passwordController.text,
+                          passwordConfirmation: authBloc.confirmPasswordController.text,
+                          firstName: authBloc.firstNameController.text,
+                          lastName: authBloc.lastNameController.text,
+                        )));
+                     // }
+                     //
                     },
-                    text: AppTexts.signUp,
+                    isText: false,
+                    widget:state is AuthLoadingState?Center(child: CircularProgressIndicator()): Text(AppTexts.signUp,style:Theme.of(context).primaryTextTheme.displayMedium),
                   ),
                 ].addSeparator(
                     separator: SizedBox(height: AppSizes.padding20.h))

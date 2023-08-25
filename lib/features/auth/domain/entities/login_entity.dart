@@ -39,4 +39,14 @@ class UserData extends Equatable{
     required this.email,
     required this.image,
   });
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['first_name'] = this.first_name;
+    data['last_name'] = this.last_name;
+    data['name'] = this.name;
+    data['email'] = this.email;
+    data['image'] = this.image;
+    return data;
+  }
 }

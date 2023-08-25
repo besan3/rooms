@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:rooms/core/errors/exceptions.dart';
 import 'package:rooms/features/auth/data/models/login_model.dart';
+import 'package:rooms/features/auth/data/models/profile_model.dart';
 import 'package:rooms/features/home/data/models/home_models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -60,22 +61,22 @@ class SharedPrefs {
   }
   static const CACHED_USERS = "CACHED_USERS";
   static const CACHED_CARD = "CACHED_CARD";
-  // Future<Unit> cacheUsers(AllUsersModel allUsers) {
-  //   SharedPrefs.setString(CACHED_USERS, json.encode(allUsers.toJson()));
-  //   return Future.value(unit);
-  // }
+  Future<Unit> cacheUsers(ProfileModel allUsers) {
+    SharedPrefs.setString(CACHED_USERS, json.encode(allUsers.toJson()));
+    return Future.value(unit);
+  }
   Future<Unit> cacheHomeData(HomeModel homeModel) {
     SharedPrefs.setString('homeData', json.encode(homeModel.toJson()));
     return Future.value(unit);
   }
-  // Future<AllUsersModel> getCachedUsers() {
-  //   final jsonString = SharedPrefs.getString(CACHED_USERS);
-  //   if (jsonString != null) {
-  //     return Future.value(AllUsersModel.fromJson(json.decode(jsonString)));
-  //   } else {
-  //     throw EmptyCacheException();
-  //   }
-  // }
+  Future<ProfileModel> getCachedUsers() {
+    final jsonString = SharedPrefs.getString(CACHED_USERS);
+    if (jsonString != null) {
+      return Future.value(ProfileModel.fromJson(json.decode(jsonString)));
+    } else {
+      throw EmptyCacheException();
+    }
+  }
   Future<HomeModel> getCachedHomeData() {
     final jsonString = SharedPrefs.getString('homeData');
     if (jsonString != null) {

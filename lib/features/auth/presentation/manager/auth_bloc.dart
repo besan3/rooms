@@ -6,6 +6,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:rooms/core/errors/fauilers.dart';
 import 'package:rooms/features/auth/data/models/register_model.dart';
 import 'package:rooms/features/auth/domain/entities/login_entity.dart';
 import 'package:rooms/features/auth/domain/entities/profile_entity.dart';
@@ -25,6 +26,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final RegisterUseCase registerUseCase;
   final GetProfileUseCase profileUseCase;
   final UpdateProfileUseCase updateProfileUseCase;
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController emailCodeController = TextEditingController();
   final TextEditingController codeController = TextEditingController();
@@ -63,18 +66,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }) : super(AuthInitial()) {
 
     on<AuthEvent>((event, emit) async {
-      if(event is InitialEvent){
-        emit(AuthInitial());
-      }
-
       if (event is LoginEvent) {
         emit(AuthLoadingState());
         var result = await loginUseCase.call(event.email, event.password);
       print(result);
 
-        emit(result.fold((l) => AuthErrorState(message: l.toString()), (r) {
+        emit(result.fold((l) => AuthErrorState(message:l is ConnectionFailure?'Check Your Internet Connection': l.toString()), (r) {
 
           loginEntity = r;
+          add(GetProfileEvent());
           if(r.status==true) {
           return AuthSuccessState(loginEntity: loginEntity);}
           else{
@@ -88,7 +88,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
         emit(result.fold((l) {
 
-          return AuthErrorState(message: l.toString());
+          return AuthErrorState(message:l is ConnectionFailure?'Check Your Internet Connection': l.toString());
         }, (r) {
           registerEntity=r;
 
@@ -106,10 +106,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
         emit(result.fold((l) {
 
-          return AuthErrorState(message: l.toString());
+          return AuthErrorState(message:l is ConnectionFailure?'Check Your Internet Connection': l.toString());
         }, (r) {
           profileEntity=r;
-            return AuthGetProfileSuccessState(profileEntity: r);
+            return AuthGetProfileSuccessState(profileEntity: profileEntity);
 
         }));
       }

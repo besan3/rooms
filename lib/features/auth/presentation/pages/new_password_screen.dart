@@ -63,7 +63,11 @@ class NewPasswordScreen extends StatelessWidget {
                           AppIcons.lock,
                           width: 15.w,
                           height: 15.h,
-                        ),
+                        ), validator: (value){
+                        if(value!.isEmpty){
+                          return 'This Field is required';
+                        }return null;
+                      },
                         suffix: SizedBox(),
                         hintText: '******',
                         textInputType: TextInputType.visiblePassword,),

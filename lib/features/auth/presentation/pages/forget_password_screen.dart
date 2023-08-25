@@ -45,7 +45,11 @@ class ForgetPasswordScreen extends StatelessWidget {
                     AppIcons.email,
                     width: 15.w,
                     height: 15.h,
-                  ),
+                  ), validator: (value){
+                  if(value!.isEmpty){
+                    return 'This Field is required';
+                  }return null;
+                },
                   suffix: SizedBox(),
                   hintText: 'email@email.com',
                   textInputType: TextInputType.emailAddress,),

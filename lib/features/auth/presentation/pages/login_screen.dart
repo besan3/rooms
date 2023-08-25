@@ -23,6 +23,10 @@ class _LoginScreenState extends State<LoginScreen> {
           // print(state.message);
           Fluttertoast.showToast(msg: state.message, textColor: Colors.white);
         }
+        if(state is AuthSuccessState){
+          Navigator.pushReplacementNamed(context, AppRoutes.home);
+          context.read<AuthBloc>().add(GetProfileEvent());
+        }
       },
       builder: (context, state) {
         bool isPasswordVisible = state is AuthVisiblePasswordState;

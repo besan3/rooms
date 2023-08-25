@@ -5,6 +5,7 @@ import 'package:rooms/core/network/local_storage.dart';
 import 'package:rooms/core/network/network_info.dart';
 import 'package:rooms/features/home/data/data_sources/home_remote_data_source.dart';
 import 'package:rooms/features/home/domain/entities/home_entity.dart';
+import 'package:rooms/features/home/domain/entities/room_details_entity.dart';
 import 'package:rooms/features/home/domain/repositories/home_repository.dart';
 
 class HomeRepositoryImp implements HomeRepository{
@@ -36,4 +37,20 @@ class HomeRepositoryImp implements HomeRepository{
     required this.homeRemoteDataSource,
     required this.networkInfo,
   });
+
+  @override
+  Future<Either<Failure, RoomDetailsEntity>> getRoomData(int roomId) async{
+    if(await networkInfo.isConnected){
+
+      try{
+        var result=await homeRemoteDataSource.getRoomData(roomId);
+        return Right(result);
+      }on DioException{
+        return Left(ServerFailure());
+        // }
+      }
+    }else{
+      return Left(ConnectionFailure());
+    }
+  }
 }

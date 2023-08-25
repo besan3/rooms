@@ -8,6 +8,7 @@ import 'package:rooms/core/network/local_storage.dart';
 import 'package:rooms/core/network/network_info.dart';
 import 'package:rooms/features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:rooms/features/auth/data/models/login_model.dart';
+import 'package:rooms/features/auth/data/models/profile_model.dart';
 import 'package:rooms/features/auth/domain/entities/login_entity.dart';
 import 'package:rooms/features/auth/domain/entities/profile_entity.dart';
 import 'package:rooms/features/auth/domain/entities/register_entity.dart';
@@ -61,11 +62,15 @@ class AuthRepositoryImp implements AuthRepository{
   @override
   Future<Either<Failure, ProfileEntity>> getProfile()async {
     try{
+
       if(await networkInfo.isConnected){
         var response=await  authRemoteDataSource.getProfile();
+
         print(Right(response));
         return Right(response);
-      }else{
+      }
+
+      else{
         return Left(ConnectionFailure());
       }
     }on DioException{

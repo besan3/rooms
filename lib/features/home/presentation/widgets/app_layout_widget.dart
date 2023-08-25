@@ -3,20 +3,16 @@ import 'package:rooms/core/network/local_storage.dart';
 import 'package:rooms/features/home/presentation/manager/home_bloc.dart';
 
 class AppLayout extends StatelessWidget {
-var profileData=SharedPrefs.getDta(key: 'profile');
-
+var profileData=SharedPrefs.getDta(key:'profile');
   @override
   Widget build(BuildContext context) {
     print(profileData);
     HomeBloc homeBloc=context.read<HomeBloc>();
     return BlocConsumer<HomeBloc, HomeState>(
       listener: (context, state) {
-        if(state is HomeInitial){
-          homeBloc.add(GetHomeDataEvent());
-
-        }
       },
       builder: (context, state) {
+
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             shape:RoundedRectangleBorder(
@@ -65,9 +61,14 @@ var profileData=SharedPrefs.getDta(key: 'profile');
           ) ,
           appBar: AppBar(
             title: Text(AppTexts.appName),
-              leading:profileData!=null?  CircleAvatar(
-              backgroundImage: ExactAssetImage(profileData.image),
-            ):null,
+              leading:profileData!=null?  Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CircleAvatar(
+                  radius: AppSizes.radius8.r,
+                backgroundColor: AppColors.cardColor,
+                child: Image.network(profileData,width: 25.w,),
+            ),
+              ):null,
             actions: [
               IconButton(onPressed: (){}, icon: SvgPicture.asset(AppIcons.notifications))
             ],

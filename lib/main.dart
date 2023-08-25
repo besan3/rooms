@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rooms/core/app_routes.dart';
 import 'package:rooms/core/app_themes.dart';
-import 'package:rooms/features/auth/presentation/pages/login_screen.dart';
 import 'package:rooms/features/home/presentation/manager/home_bloc.dart';
 import 'package:rooms/features/on_boarding/presentation/manager/on_boarding_bloc.dart';
-import 'package:rooms/home.dart';
 import 'package:rooms/core/injection_container.dart' as di;
 import 'package:rooms/core/app_sizes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,7 +34,7 @@ class MyApp extends StatelessWidget {
           return MultiBlocProvider(
             providers: [
               BlocProvider(
-                create: (_) => di.sl<AuthBloc>()..add(GetProfileEvent()),
+                create: (_) => di.sl<AuthBloc>(),
               ),
               BlocProvider(
                 create: (context) => OnBoardingBloc(),
@@ -49,6 +47,7 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               theme: AppThemes.lightTheme,
               initialRoute: AppRoutes.splash,
+
               onGenerateRoute: AppRoutes.generateRoute,
 
             ),
