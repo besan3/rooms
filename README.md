@@ -1,6 +1,12 @@
 # rooms
 
-A new Flutter project.
+A Flutter Social App for creating,joining rooms and posting.
+
+State Management Used:
+Bloc
+
+Architecture Used:
+Clean Architecture 
 
 ## Getting Started
 
