@@ -19,10 +19,14 @@ class GetHomeDataEvent extends HomeEvent{
 
 }
 class LikeRoomEvent extends HomeEvent{
+  int index;
   @override
 
-  List<Object?> get props => [];
+  List<Object?> get props => [index];
 
+  LikeRoomEvent({
+    required this.index,
+  });
 }
 class GetRoomDetailsEvent extends HomeEvent{
   int roomId;

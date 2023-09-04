@@ -31,10 +31,34 @@ abstract class AppTexts{
   static const String home = "Home";
   static const String search = "Search";
   static const String rooms = "Rooms";
+  static const String people = "People";
   static const String favorites = "Favorites";
-  static const String recommended = "Recommended Rooms";
+  static const String recommended = "Recommended Posts";
   static const String mostPopular = "Most Popular Rooms";
   static const String exploreRooms = " Explore Rooms";
   static const String joinSome = "Your Rooms are quiet right now.join some more? ";
+  static const String roomsIamIn = "Rooms I'm in";
+  static const String myRooms = "My Rooms";
+  static const String createRoom = "Create your Room";
+  static const String roomDisc = "Your room is the place where you can present your ideas with people and discuss with them";
+  static const String uploadPhoto = "Upload Photo";
+  static const String roomName = "Room Name";
+  static const String enterRoomName = "Enter your room name";
+  static const String privateRoom = "Private Room";
+  static const String create = "Create";
+  static const String share = "Share";
+  static const String notification = "Notification";
+  static const String secutity = "Secutity";
+  static const String language = "Language";
+  static const String resetPassword = "Reset Password";
+  static const String darkMode = "Dark Mode";
+  static const String privacyPolicy = "Privacy Policy";
+  static const String helpCenter = "Help Center";
+  static const String logOut = "Log out";
+  static const String deleteAccount = "Delete Account";
+  static const String editRoom = "Edit your Room";
+  static const String edit = "Edit";
+
+
 
 }

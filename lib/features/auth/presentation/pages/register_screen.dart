@@ -2,18 +2,13 @@ import 'package:rooms/core/index.dart';
 import 'package:rooms/features/auth/domain/entities/register_info.dart';
 import 'package:rooms/features/auth/presentation/manager/auth_bloc.dart';
 
-class RegisterScreen extends StatefulWidget {
-
-  @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
-}
-
-class _RegisterScreenState extends State<RegisterScreen> {
+class RegisterScreen extends StatelessWidget {
+final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
 
     AuthBloc authBloc = context.read<AuthBloc>();
-    GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
     return BlocConsumer<AuthBloc, AuthState>(
   listener: (context, state) {
           if(state is AuthRegisterSuccessState){
@@ -32,7 +27,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Padding(
             padding: EdgeInsets.all(AppSizes.padding20.h.w),
             child: Form(
-              //key: _formKey,
+              key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -160,6 +155,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     suffix: IconButton(
                       onPressed: () {
+
                         context.read<AuthBloc>().add(ToggleVisibilityEvent());
 
                       },
@@ -173,7 +169,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   CustomAppButton(
                     onPressed: () {
-                    //  if(_formKey.currentState!.validate()){
+                     if(_formKey.currentState!.validate()){
                         context.read<AuthBloc>().add(RegisterEvent(registerInfo: RegisterInfo(
                           email: authBloc.emailController.text,
                           password: authBloc.passwordController.text,
@@ -181,8 +177,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           firstName: authBloc.firstNameController.text,
                           lastName: authBloc.lastNameController.text,
                         )));
-                     // }
-                     //
+                     }
+
                     },
                     isText: false,
                     widget:state is AuthLoadingState?Center(child: CircularProgressIndicator()): Text(AppTexts.signUp,style:Theme.of(context).primaryTextTheme.displayMedium),

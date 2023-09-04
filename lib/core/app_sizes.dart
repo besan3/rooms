@@ -23,6 +23,7 @@ class AppSizes{
   static const double radius8= 8;
   static const double radius15= 15;
   static const double radius26= 26;
+    static const double radius35= 35;
   static const double radius64= 64;
   static const double height65= 65;
   static const double height45= 45;

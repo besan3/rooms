@@ -34,7 +34,7 @@ class RoomDataEntity extends Equatable{
   final List<Participants>? participants;
   final List<Posts>? posts;
   @override
-  List<Object?> get props =>[id,userId,name,image,isPrivate,createdAt,administrator,participants,posts];
+  List<Object?> get props =>[id,userId,name,image,isPrivate,createdAt,participants,posts,administrator];
 
   RoomDataEntity({
     this.id,
@@ -55,9 +55,7 @@ class RoomDataEntity extends Equatable{
     data['image'] = this.image;
     data['is_private'] = this.isPrivate;
     data['created_at'] = this.createdAt;
-    if (this.administrator != null) {
-      data['administrator'] = this.administrator!.toJson();
-    }
+
     if (this.participants != null) {
       data['participants'] = this.participants!.map((v) => v.toJson()).toList();
     }
@@ -67,6 +65,8 @@ class RoomDataEntity extends Equatable{
     return data;
   }
 }
+
+
 class Participants extends Equatable {
   final int id;
   final String name;
@@ -163,4 +163,17 @@ class Comments extends Equatable{
 
   @override
   List<Object?> get props =>[id,userId,postId,body];
+}
+
+class Administrator extends Equatable{
+  final int id;
+  final String name;
+
+  @override
+  List<Object?> get props => [id,name];
+
+  const Administrator({
+    required this.id,
+    required this.name,
+  });
 }

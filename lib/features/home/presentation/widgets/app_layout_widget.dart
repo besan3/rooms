@@ -19,7 +19,9 @@ var profileData=SharedPrefs.getDta(key:'profile');
               borderRadius: BorderRadius.circular(AppSizes.radius64.r)
             ) ,
             backgroundColor: Colors.black,
-            onPressed: (){},
+            onPressed: (){
+              Navigator.pushNamed(context, AppRoutes.rooms);
+            },
             child:Icon(Icons.add,color:AppColors.backgroundColor) ,
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -74,12 +76,10 @@ var profileData=SharedPrefs.getDta(key:'profile');
             ],
           ),
 
-          body: SingleChildScrollView(
-            child: SafeArea(
-              child: Padding(
-                padding: EdgeInsets.all(AppSizes.padding20.h.w),
-                child:homeBloc.screens[homeBloc.index],
-              ),
+          body: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.all(AppSizes.padding20.h.w),
+              child:homeBloc.screens[homeBloc.index],
             ),
           ),
 

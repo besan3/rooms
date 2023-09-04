@@ -6,6 +6,8 @@ import 'package:rooms/features/home/domain/entities/home_entity.dart';
 import 'package:rooms/features/home/domain/use_cases/get_home_data_usecase.dart';
 import 'package:rooms/features/home/domain/use_cases/get_room_details_usecase.dart';
 import 'package:rooms/features/home/presentation/pages/home_screen.dart';
+import 'package:rooms/features/home/presentation/pages/rooms_screen.dart';
+import 'package:rooms/features/home/presentation/pages/search_screen.dart';
 
 import '../../domain/entities/room_details_entity.dart';
 
@@ -20,8 +22,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   var result;
   List<Widget>screens=[
     HomeScreen(),
-    HomeScreen(),
-    HomeScreen(),
+    SearchScreen(),
+    RoomsScreen(),
     HomeScreen(),
   ];
    int index=0;
@@ -42,6 +44,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       }
       if(event is LikeRoomEvent){
         if(state is DisLikedState){
+          index=event.index;
           emit(LikedState());
         }else{
           emit(DisLikedState());
