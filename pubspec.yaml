@@ -34,7 +34,9 @@ dependencies:
   pinput: ^3.0.0
   flutter_secure_storage: ^8.0.0
   shimmer_animation: ^2.1.0+1
-
+  dotted_border:
+  appinio_social_share: ^0.2.5
+  share_plus: ^7.1.0
 
 dev_dependencies:
   bloc_test:

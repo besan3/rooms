@@ -38,8 +38,8 @@ class RoomDataModel extends RoomDataEntity {
             .map<ParticipantsModel>(
                 (dataJson) => ParticipantsModel.fromJson((dataJson)))
             .toList(),
-        administrator: AdministratorModel.fromJson(json['administrator']),
         createdAt: json['createdAt'],
+        administrator: json['administrator']!=null?AdminModel.fromJson(json['administrator']):null,
         isPrivate: json['isPrivate']);
   }
 }
@@ -77,6 +77,12 @@ comments: json['comments']
 (dataJson) => CommentsModel.fromJson((dataJson)))
     .toList(),
 );
+}
+}
+class AdminModel extends Administrator{
+  AdminModel({required super.id, required super.name});
+  factory AdminModel.fromJson(Map<String,dynamic>json){
+    return AdminModel(id: json['id']??0, name: json['name']??'');
 }
 }
 class CommentsModel extends Comments{

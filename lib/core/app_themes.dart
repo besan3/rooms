@@ -51,6 +51,12 @@ abstract class AppThemes{
         fontWeight: FontWeight.w500,
         color: AppColors.hintColor,
       ),
+      bodyMedium: TextStyle(
+        fontFamily:AppTexts.fontFamily,
+        fontSize: AppSizes.fontSize18.sp,
+        fontWeight: FontWeight.w500,
+        color: AppColors.primaryColor,
+      ),
     )
   ) ;
 }
