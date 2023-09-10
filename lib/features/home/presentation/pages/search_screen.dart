@@ -93,7 +93,7 @@ if(state is GetRoomDataSuccessState){
                         state is GetSearchResultLoadingState?
                       //  searchModel.data.data.isEmpty?SizedBox(): searchModel.data!.data!.length==0?Text('No Results'):
                       CircularProgressIndicator():
-                        Expanded(
+                        result['data']['data'].length==0?Text('No results found'):   Expanded(
                           child: ListView.separated(
                             itemBuilder: (context,index) =>  GestureDetector(
                               onTap: ()=>homeBloc.add(GetRoomDetailsEvent(roomId: result['data']['data'][index]['id'])),
