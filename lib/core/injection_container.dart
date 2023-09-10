@@ -12,8 +12,11 @@ import 'package:rooms/features/auth/presentation/manager/auth_bloc.dart';
 import 'package:rooms/features/home/data/data_sources/home_remote_data_source.dart';
 import 'package:rooms/features/home/data/repositories/home_repositoryImp.dart';
 import 'package:rooms/features/home/domain/repositories/home_repository.dart';
+import 'package:rooms/features/home/domain/use_cases/add_room_usecase.dart';
 import 'package:rooms/features/home/domain/use_cases/get_home_data_usecase.dart';
+import 'package:rooms/features/home/domain/use_cases/get_post_comment_usecase.dart';
 import 'package:rooms/features/home/domain/use_cases/get_room_details_usecase.dart';
+import 'package:rooms/features/home/domain/use_cases/get_search_results_usecase.dart';
 import 'package:rooms/features/home/presentation/manager/home_bloc.dart';
 import 'network/network_info.dart';
 
@@ -27,7 +30,7 @@ Future<void> init() async {
   sl.registerFactory(() => AuthBloc(
       loginUseCase: sl(),registerUseCase: sl(),profileUseCase: sl(),updateProfileUseCase: sl()));
 
-  sl.registerFactory(() => HomeBloc(getHomeDataUseCase: sl(),getRoomDateUseCase: sl()));
+  sl.registerFactory(() => HomeBloc(getHomeDataUseCase: sl(),getRoomDateUseCase: sl(), getSearchResultUseCase: sl(), getPostCommentUseCase: sl(), addRoomUseCase: sl()));
 // UseCases
 
   sl.registerLazySingleton(() => LoginUseCase( authRepository: sl()));
@@ -36,6 +39,9 @@ Future<void> init() async {
   sl.registerLazySingleton(() => UpdateProfileUseCase( authRepository: sl()));
   sl.registerLazySingleton(() => GetHomeDataUseCase( homeRepository: sl()));
   sl.registerLazySingleton(() => GetRoomDateUseCase( homeRepository: sl()));
+  sl.registerLazySingleton(() => GetSearchResultUseCase( homeRepository: sl()));
+  sl.registerLazySingleton(() => GetPostCommentUseCase( homeRepository: sl()));
+  sl.registerLazySingleton(() => AddRoomUseCase( homeRepository: sl()));
 
 
 // Repository

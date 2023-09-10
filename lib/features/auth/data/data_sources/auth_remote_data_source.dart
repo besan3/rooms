@@ -31,6 +31,7 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource{
     if(response.statusCode==200){
       LoginModel loginModel=LoginModel.fromJson(response.data);
       SharedPrefs.saveData(key: 'token', value: loginModel.access_token);
+      SharedPrefs.saveData(key: 'id', value: loginModel.data!.id);
       return loginModel;
     }
     else{
@@ -73,6 +74,9 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource{
     if(response.statusCode==200){
       ProfileModel profileModel=ProfileModel.fromJson(response.data);
       SharedPrefs.saveData(key: 'profile', value: profileModel.data?.image);
+      SharedPrefs.saveData(key: 'name', value: profileModel.data?.name);
+      SharedPrefs.saveData(key: 'email', value: profileModel.data?.email);
+      SharedPrefs().cacheUsers(profileModel);
       print(profileModel);
       return profileModel;
     }

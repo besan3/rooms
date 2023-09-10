@@ -7,6 +7,7 @@ import 'package:rooms/features/auth/presentation/pages/verification_code_screen.
 import 'package:rooms/features/home/presentation/pages/add_rooms_screen.dart';
 import 'package:rooms/features/home/presentation/pages/edit_room_screen.dart';
 import 'package:rooms/features/home/presentation/pages/search_screen.dart';
+import 'package:rooms/features/home/presentation/pages/view_post_screen.dart';
 import 'package:rooms/features/home/presentation/widgets/app_layout_widget.dart';
 import 'package:rooms/features/on_boarding/presentation/pages/on_boarding_screen.dart';
 import 'package:rooms/splash_screen.dart';
@@ -24,6 +25,7 @@ class AppRoutes {
   static const String rooms = '/rooms';
   static const String search = '/search';
   static const String editRoom = '/editRoom';
+  static const String viewPost = '/viewPost';
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case splash:
@@ -48,6 +50,7 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => SearchScreen());
       case editRoom:
         return MaterialPageRoute(builder: (_) => EditRoomScreen());
+
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

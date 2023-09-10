@@ -57,12 +57,22 @@ class SharedPrefs {
 
   }
   Future<bool> saveToken(String token)async {
+
     return await _sharedPrefs.setString('token', token);
+  }
+  Future<bool> removeToken()async {
+
+    return await _sharedPrefs.remove('token');
   }
   static const CACHED_USERS = "CACHED_USERS";
   static const CACHED_CARD = "CACHED_CARD";
+  static const CACHED_PROFILE = "CACHED_PROFILE";
   Future<Unit> cacheUsers(ProfileModel allUsers) {
     SharedPrefs.setString(CACHED_USERS, json.encode(allUsers.toJson()));
+    return Future.value(unit);
+  }
+  Future<Unit> cacheProfile(ProfileModel allUsers) {
+    SharedPrefs.setString(CACHED_PROFILE, json.encode(allUsers.toJson()));
     return Future.value(unit);
   }
   Future<Unit> cacheHomeData(HomeModel homeModel) {
@@ -98,7 +108,7 @@ class SharedPrefs {
       throw EmptyCacheException();
     }
   }
-  String get theme=>_sharedPrefs?.getString('theme')??'system';
+  String get theme=>_sharedPrefs.getString('theme')??'system';
 
   static String get token => _sharedPrefs.getString('token')??'';
 

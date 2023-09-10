@@ -72,3 +72,85 @@ class GetRoomDataErrorState extends HomeState {
     required this.message,
   });
 }
+class GetSearchResultLoadingState extends HomeState{
+  @override
+  List<Object?> get props => [];
+
+}
+class GetSearchResultSuccessState extends HomeState{
+
+  @override
+  List<Object?> get props => [];
+
+
+}
+class GetSearchResultErrorState extends HomeState{
+  final String message;
+  @override
+  List<Object?> get props => [message];
+
+  const GetSearchResultErrorState({
+    required this.message,
+  });
+}
+
+class GetPostCommentLoadingState extends HomeState{
+  @override
+  List<Object?> get props => [];
+
+}
+class GetPostCommentSuccessState extends HomeState{
+  final Comment comment;
+
+  @override
+  List<Object?> get props => [comment];
+
+  const GetPostCommentSuccessState({
+    required this.comment,
+  });
+}
+class GetPostCommentErrorState extends HomeState {
+  final String message;
+
+  @override
+  List<Object?> get props => [message];
+
+  const GetPostCommentErrorState({
+    required this.message,
+  });
+}
+class AddRoomSuccessState extends HomeState{
+  @override
+  List<Object?> get props => [];
+
+
+}
+class AddRoomErrorState extends HomeState {
+  final String message;
+
+  @override
+  List<Object?> get props => [message];
+
+  const AddRoomErrorState({
+    required this.message,
+  });
+}
+class PickedImageState extends HomeState{
+  final File image;
+  @override
+  List<Object?> get props => [image];
+
+  const PickedImageState({
+    required this.image,
+  });
+}
+class SwitchOn  extends HomeState{
+  @override
+  List<Object?> get props => [];
+
+}
+class SwitchOff  extends HomeState{
+  @override
+  List<Object?> get props => [];
+
+}

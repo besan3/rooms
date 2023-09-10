@@ -33,10 +33,14 @@ dependencies:
   flutter_svg:
   pinput: ^3.0.0
   flutter_secure_storage: ^8.0.0
-  shimmer_animation: ^2.1.0+1
+  shimmer:
   dotted_border:
   appinio_social_share: ^0.2.5
   share_plus: ^7.1.0
+  full_screen_image: ^2.0.0
+  read_more_text: ^0.0.5
+  readmore: ^2.1.0
+  modal_bottom_sheet: ^2.1.2
 
 dev_dependencies:
   bloc_test:

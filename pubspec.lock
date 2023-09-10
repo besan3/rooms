@@ -477,6 +477,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.0"
+  full_screen_image:
+    dependency: "direct main"
+    description:
+      name: full_screen_image
+      sha256: "97831b00d07b17c674ba3a4eddcee306dbd0d7c66851f1b67856e12daeb9b3aa"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   get_it:
     dependency: "direct main"
     description:
@@ -693,6 +701,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  modal_bottom_sheet:
+    dependency: "direct main"
+    description:
+      name: modal_bottom_sheet
+      sha256: ef533916a2c3089571c32bd34e410faca77a6849a3f28f748e0794525c5658a0
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.2"
   nested:
     dependency: transitive
     description:
@@ -861,6 +877,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
+  read_more_text:
+    dependency: "direct main"
+    description:
+      name: read_more_text
+      sha256: "769750959f26a71408eb912e1b1e714713f72bf3efcc3f89e53c31b11101376c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.5"
+  readmore:
+    dependency: "direct main"
+    description:
+      name: readmore
+      sha256: "99c2483202f7c7e98c50834d72be2b119aefecf4497ca1960ae9d5f418eb1481"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.0"
   share_plus:
     dependency: "direct main"
     description:
@@ -965,14 +997,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  shimmer_animation:
+  shimmer:
     dependency: "direct main"
     description:
-      name: shimmer_animation
-      sha256: "1f12d0f3fc20acbf2dcf8438b79f4268c523d55b2f3de55cf49e5bd3acbc5719"
+      name: shimmer
+      sha256: "5f88c883a22e9f9f299e5ba0e4f7e6054857224976a5d9f839d4ebdc94a14ac9"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0+1"
+    version: "3.0.0"
   sky_engine:
     dependency: transitive
     description: flutter

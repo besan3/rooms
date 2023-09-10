@@ -11,6 +11,7 @@ class SplashScreen extends StatelessWidget {
   var isFirstLogin=SharedPrefs.getDta(key: 'token');
    print(isSaved);
    print(isFirstLogin);
+  // print(user);
     Future.delayed(const Duration(seconds: 2), (){
       Navigator.pushReplacementNamed(context,
          isSaved!=null?isFirstLogin==null?

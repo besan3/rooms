@@ -38,7 +38,7 @@ data: json['data']
 class PostDetailModel extends PostDetailEntity{
   PostDetailModel({required super.id, required super.userId, required super.roomId, required super.title, required super.body, required super.image, required super.createdAt, required super.commentsCount,super.room,super.user});
 factory PostDetailModel.fromJson(Map<String,dynamic>json){
-return PostDetailModel(id: json['id']??0, userId: json['userId']??0, roomId: json['roomId']??0, title: json['title']??'', body: json['body']??'', image:json ['image']??'', createdAt:json ['createdAt']??'', commentsCount: json['commentsCount']??0,
+return PostDetailModel(id: json['id']??0, userId: json['user_id']??0, roomId: json['room_id']??0, title: json['title']??'', body: json['body']??'', image:json ['image']??'', createdAt:json ['created_at']??'', commentsCount: json['comments_count']??0,
 room:json['room']!=null?PostRoomModel.fromJson(json['room']):null,
 user:json['user']!=null?PostUserModel.fromJson(json['user']):null,
 );
@@ -53,6 +53,6 @@ class PostUserModel extends PostUser{
 class PostRoomModel extends PostRoom{
   PostRoomModel({required super.id, required super.userId, required super.name, required super.image, required super.isPrivate, required super.isActive, required super.createdAt, required super.updatedAt, required super.deletedAt});
   factory PostRoomModel.fromJson(Map<String,dynamic>json){
-    return PostRoomModel(id:json ['id']??0, userId:json ['userId']??0, name: json['name']??'', image:json ['image']??'', isPrivate:json ['isPrivate']??0, isActive:json ['isActive']??0, createdAt:json ['createdAt']??'', updatedAt:json ['updatedAt']??'', deletedAt: json['deletedAt']??'');
+    return PostRoomModel(id:json ['id']??0, userId:json ['user_id']??0, name: json['name']??'', image:json ['image']??'', isPrivate:json ['isPrivate']??0, isActive:json ['isActive']??0, createdAt:json ['created_at']??'', updatedAt:json ['updatedAt']??'', deletedAt: json['deletedAt']??'');
 }
 }

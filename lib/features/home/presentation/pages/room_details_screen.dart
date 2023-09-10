@@ -1,15 +1,17 @@
 import 'package:rooms/core/index.dart';
+import 'package:rooms/core/network/local_storage.dart';
 import 'package:rooms/features/home/domain/entities/room_details_entity.dart';
 import 'package:rooms/features/home/presentation/manager/home_bloc.dart';
 import 'package:rooms/features/home/presentation/widgets/post_widget.dart';
 import 'package:share_plus/share_plus.dart';
 class RoomDetailsScreen extends StatelessWidget {
  final RoomDetailsEntity roomData;
-
   RoomDetailsScreen({required this.roomData});
 
   @override
   Widget build(BuildContext context) {
+    bool isAdmin=SharedPrefs.getDta( key: 'id',)!=null&&SharedPrefs.getDta( key: 'id',)==roomData.data!.administrator!.id;
+
     return BlocConsumer<HomeBloc, HomeState>(
       listener: (context, state) {
       },
@@ -43,7 +45,9 @@ class RoomDetailsScreen extends StatelessWidget {
                           children: [
                             CircleAvatar(
                                 backgroundColor: AppColors.shadeColor,
-                                child: IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back,color: AppColors.cardColor),padding: EdgeInsets.zero)),
+                                child: IconButton(onPressed: (){
+                                  Navigator.popAndPushNamed(context, AppRoutes.home);
+                                  }, icon: Icon(Icons.arrow_back,color: AppColors.cardColor),padding: EdgeInsets.zero)),
                             Spacer(),
                             CircleAvatar(
                                 backgroundColor: AppColors.shadeColor,
@@ -60,39 +64,43 @@ class RoomDetailsScreen extends StatelessWidget {
                                 itemBuilder: (context) => [
                                   PopupMenuItem(
                                     value: 1,
-                                    // row has two child icon and text.
-                                    child: TextButton.icon(
-
-                                        onPressed: (){
-                                          Navigator.pushNamed(context, AppRoutes.editRoom);
-                                        },
-                                        icon: Icon(Icons.edit),style: ButtonStyle(
-                                      padding: MaterialStatePropertyAll(
-                                        EdgeInsets.zero
-                                      ),
-                                      iconColor: MaterialStatePropertyAll(
-                                        AppColors.primaryColor
-                                      ),
-                                      textStyle:MaterialStatePropertyAll(
-                                        Theme.of(context).primaryTextTheme.bodySmall?.copyWith(
-                                          color: Colors.black
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                          // sized box with width 10
+                                          width: 10,
                                         ),
-                                      )
-                                    ),
-                                        label:  Text(AppTexts.editRoom)),
+                                        Text(AppTexts.shareRoom),
+                                      ],
+                                    )
                                   ),
                                   // popupmenu item 2
+                               PopupMenuItem(
+                                    value: 2,
+                                    child: Row(
+                                      children: [
+
+                                        SizedBox(
+                                          // sized box with width 10
+                                          width: 10,
+                                        ),
+                                       GestureDetector(
+                                            onTap: ()=> Navigator.pushNamed(context, AppRoutes.editRoom),
+                                            child: Text( isAdmin? AppTexts.editRoom:AppTexts.reportRoom))
+                                      ],
+                                    ),
+                                  ),
                                   PopupMenuItem(
                                     value: 2,
                                     // row has two child icon and text
                                     child: Row(
                                       children: [
-                                        Icon(Icons.chrome_reader_mode),
+
                                         SizedBox(
                                           // sized box with width 10
                                           width: 10,
                                         ),
-                                        Text("About")
+                                        isAdmin? Text(AppTexts.deleteRoom):SizedBox()
                                       ],
                                     ),
                                   ),
@@ -116,6 +124,7 @@ class RoomDetailsScreen extends StatelessWidget {
                         backgroundColor: AppColors.cardColor,
                       ),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(roomData.data!.name!+" / "+roomData.data!.administrator!.name,
                             style: Theme.of(context).primaryTextTheme.bodyMedium,
@@ -125,34 +134,54 @@ class RoomDetailsScreen extends StatelessWidget {
                             style: Theme.of(context).primaryTextTheme.displaySmall,
                           ),
                         ],
-                      )
+                      ),
+                    Spacer(),
+                     isAdmin?SizedBox(): ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(AppColors.primaryColor)
+                        ),
+                         onPressed: (){
+                          print(SharedPrefs.getDta( key: 'id',));
+                         }, child: Text(AppTexts.join,style:Theme.of(context).primaryTextTheme.displayMedium ,))
                     ],
                   ),
                 ),
 
-                Padding(
-                  padding:EdgeInsets.symmetric(horizontal: AppSizes.padding20.w),
-                  child: Text('Room Posts',
-                  style: Theme.of(context).primaryTextTheme.titleMedium,
+                Container(
+                  height: 48.h,
+                  color: AppColors.cardColor,
+                  padding: EdgeInsets.symmetric(horizontal: AppSizes.padding20.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        AppTexts.bestPosts,
+                        style: Theme.of(context).primaryTextTheme.displaySmall,
+                      ),
+                      Text(
+                        AppTexts.viewAll,
+                        style: Theme.of(context).primaryTextTheme.displaySmall,
+                      ),
+                    ],
                   ),
                 ),
                 roomData.data==null||roomData.data!.posts!.length==0?Center(
                     child: Text('No Posts yet',  style: Theme.of(context).primaryTextTheme.displaySmall,)):Expanded(child:
-                Padding(
-                  padding:EdgeInsets.symmetric(horizontal: AppSizes.padding20.w),
-                  child: ListView.separated(
-                    itemBuilder:(context,index)=>PostWidget(
-                        hasImage:roomData.data!.posts![index].image?.isNotEmpty ,
-                      roomImage:roomData.data!.image!,
-                       postImage:roomData.data!.posts![index].image ,
-                       post: roomData.data!.posts![index].body,
-                        roomName: roomData.data!.name!,
-                         time: roomData.data!.createdAt??'',
-                          comments: roomData.data!.posts![index].comments!.length,
-                          likes: roomData.data!.posts![index].comments!.length,
-                          creator:roomData.data!.administrator!.name
-                          ), separatorBuilder: (context, index) => SizedBox(height: AppSizes.padding20.h,), itemCount: roomData.data!.posts!.length),
-                ))
+                ListView.separated(
+                  itemBuilder:(context,index)=>PostWidget(
+                      hasImage:roomData.data!.posts![index].image?.isNotEmpty ,
+                    roomImage:roomData.data!.image!,
+                     postImage:roomData.data!.posts![index].image ,
+                     post: roomData.data!.posts![index].body,
+                      roomName: roomData.data!.name!,
+                      // time: '12',
+                        comments: roomData.data!.posts![index].comments!.length,
+                        likes: roomData.data!.posts![index].comments!.length,
+                        creator:roomData.data!.administrator!.name
+                        ), separatorBuilder: (context, index) => Container(
+                  color: AppColors.cardColor,
+                  height: AppSizes.padding12.h,
+                ), itemCount: roomData.data!.posts!.length))
 
               ].addSeparator(separator: SizedBox(height: AppSizes.padding20.h,))
             ),

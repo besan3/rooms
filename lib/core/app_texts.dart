@@ -40,6 +40,7 @@ abstract class AppTexts{
   static const String roomsIamIn = "Rooms I'm in";
   static const String myRooms = "My Rooms";
   static const String createRoom = "Create your Room";
+  static const String addRoom = "Add Room";
   static const String roomDisc = "Your room is the place where you can present your ideas with people and discuss with them";
   static const String uploadPhoto = "Upload Photo";
   static const String roomName = "Room Name";
@@ -47,8 +48,9 @@ abstract class AppTexts{
   static const String privateRoom = "Private Room";
   static const String create = "Create";
   static const String share = "Share";
+  static const String join = "Join";
   static const String notification = "Notification";
-  static const String secutity = "Secutity";
+  static const String security = "Security";
   static const String language = "Language";
   static const String resetPassword = "Reset Password";
   static const String darkMode = "Dark Mode";
@@ -57,7 +59,37 @@ abstract class AppTexts{
   static const String logOut = "Log out";
   static const String deleteAccount = "Delete Account";
   static const String editRoom = "Edit your Room";
+  static const String shareRoom = "Share Room";
+  static const String deleteRoom = "Delete Room";
+  static const String reportRoom = "Report Room";
+  static const String hidePost = "Hide this post";
+  static const String reportPost = "Report this post";
+  static const String archievePost = "Archieve this post";
   static const String edit = "Edit";
+  static const String bestPosts = "Best Posts";
+  static const String news = "News";
+  static const String popular = "Popular";
+  static const String awarded = "Awarded";
+  static const String noRooms = "No Rooms here yet";
+  static const String comments = "Comments";
+  static const String writeComment = "Write comment";
+  static const List<String>taps=[
+    news,
+    home,
+    popular,
+    awarded
+  ];
+  static const List<String>settings=[
+    notification,
+    security,
+    language,
+    resetPassword,
+    darkMode,
+    privacyPolicy,
+    helpCenter,
+    logOut,
+    deleteAccount,
+  ];
 
 
 
